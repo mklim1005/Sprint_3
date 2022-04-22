@@ -9,9 +9,9 @@ public class Courier {
         this.firstName = firstName;
     }
 
-    public Courier(String login,String firstName){
+    public Courier(String login,String password){
         this.login = login;
-        this.firstName = firstName;
+        this.password = password;
     }
 
     public Courier(){

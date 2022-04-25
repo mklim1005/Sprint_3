@@ -23,6 +23,17 @@ public class Order {
         this.comment = comment;
     }
 
+    public Order (){
+        this.firstName = "Vinni";
+        this.lastName = "Puh";
+        this.address = "Moscow";
+        this.metroStation = 5;
+        this.phone = "+79032349473";
+        this.rentTime = 5;
+        this.deliveryDate = "2022-05-10";
+        this.comment = "haha";
+    }
+
     public String getFirstName() {
         return firstName;
     }

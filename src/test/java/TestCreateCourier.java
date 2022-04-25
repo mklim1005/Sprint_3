@@ -5,6 +5,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -12,11 +14,12 @@ public class TestCreateCourier {
     public String login = RandomStringUtils.randomAlphabetic(10);
     public String password = RandomStringUtils.randomAlphabetic(10);
     public String firstName = RandomStringUtils.randomAlphabetic(10);
-    Courier courier = new Courier(login, password, firstName);
+    Courier courier;
 
 
     @Before
     public void setUp() {
+        courier = new Courier(login, password, firstName);
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
     }
 
@@ -52,7 +55,7 @@ public class TestCreateCourier {
     @Test
     public void testCreateCourierReturn201(){
         Response response =   given()
-                .header("Content-type", "application/json")
+               .header("Content-type", "application/json")
                 .and()
                 .body(courier)
                 .when()

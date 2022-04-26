@@ -1,6 +1,5 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
@@ -26,7 +25,6 @@ public class TestOrderCreation {
                 .when()
                 .post("/api/v1/orders");
         responseOrder.then().assertThat().statusCode(201);
-        System.out.println(responseOrder.body().jsonPath().getInt("track"));
         responseOrder.then().assertThat().body("track", notNullValue());
 
     }

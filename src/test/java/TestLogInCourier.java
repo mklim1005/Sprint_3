@@ -21,8 +21,6 @@ public class TestLogInCourier {
 
     @Test
     public void testLogInCourierCanLogIn(){
-        System.out.println(courier.getLogin());
-        System.out.println(courier.getPassword());
         Response responseLogin =   given()
                 .header("Content-type", "application/json")
                 .and()

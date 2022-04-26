@@ -63,9 +63,6 @@ public class TestDeleteCourier {
 
     @Test
     public void requestWithNotExistingId() {
-        //int min = 10000;
-        //int max = 99999;
-        //int randomId = (int)(Math.random()*(max-min+1)+min);
        int  randomId = 99999;
         Response responseDelete = given()
                 .header("Content-type", "application/json")

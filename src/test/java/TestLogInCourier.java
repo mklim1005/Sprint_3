@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TestLogInCourier {
@@ -71,7 +72,7 @@ public class TestLogInCourier {
                 .assertThat().body("message",equalTo("Учетная запись не найдена"));
     }
     @Test
-    public void testLogInCurierNotExist(){
+    public void testLogInCourierNotExist(){
         courier.setLogin(RandomStringUtils.randomAlphabetic(10));
         courier.setPassword(RandomStringUtils.randomAlphabetic(10));
         Response responseLogin =   given()
@@ -94,7 +95,7 @@ public class TestLogInCourier {
                 .when()
                 .post("/api/v1/courier/login");
         responseLogin.then().assertThat().statusCode(200);
-      int id =  responseLogin.body().jsonPath().get("id");
+        responseLogin.then().assertThat().body("id", notNullValue());
     }
 
 }

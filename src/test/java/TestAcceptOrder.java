@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TestAcceptOrder {
@@ -38,7 +37,6 @@ public class TestAcceptOrder {
                 .when()
                 .post("/api/v1/courier/login");
         courierId = responseLogin.body().jsonPath().getInt("id");
-        System.out.println("courierId" + courierId);
         //create order and get track
         Response responseOrder =   given()
                 .header("Content-type", "application/json")
@@ -47,15 +45,12 @@ public class TestAcceptOrder {
                 .when()
                 .post("/api/v1/orders");
         trackOrder = responseOrder.body().jsonPath().getInt("track");
-        System.out.println("trackOrder" + trackOrder);
         //get orderId
         Response getOrderByTrackResponse =   given()
                 .header("Content-type", "application/json")
                 .queryParam("t",trackOrder)
                 .get("/api/v1/orders/track");
         orderId = getOrderByTrackResponse.body().jsonPath().getInt("order.id");
-        System.out.println("orderId" + orderId);
-
     }
 
     @Test
@@ -84,7 +79,6 @@ public class TestAcceptOrder {
     @Test
     public void testAcceptOrderWithWrongCourierIdReturnsError(){
         int randomId = 99999;
-        System.out.println("randomId" + randomId);
         Response responseAcceptOrder = given()
                 .header("Content-type", "application/json")
                 .queryParam("courierId", randomId)
@@ -112,7 +106,6 @@ public class TestAcceptOrder {
     @Test
     public void testAcceptOrderWithWrongOrderIdReturnsError(){
         int randomId = 99999;
-        System.out.println("randomId" + randomId);
         Response responseAcceptOrder = given()
                 .header("Content-type", "application/json")
                 .queryParam("courierId", courierId)
@@ -123,6 +116,4 @@ public class TestAcceptOrder {
                 .and()
                 .assertThat().body("message",equalTo("Заказа с таким id не существует"));
     }
-
-
 }

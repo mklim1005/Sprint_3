@@ -71,6 +71,20 @@ public class TestLogInCourier {
                 .and()
                 .assertThat().body("message",equalTo("Учетная запись не найдена"));
     }
+
+    @Test
+    public void testLogInWrongLogIn(){
+        courier.setLogin("HelloVinniPuh");
+        Response responseLogin =   given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(courier)
+                .when()
+                .post("/api/v1/courier/login");
+        responseLogin.then().assertThat().statusCode(404)
+                .and()
+                .assertThat().body("message",equalTo("Учетная запись не найдена"));
+    }
     @Test
     public void testLogInCourierNotExist(){
         courier.setLogin(RandomStringUtils.randomAlphabetic(10));

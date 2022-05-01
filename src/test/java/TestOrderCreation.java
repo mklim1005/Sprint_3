@@ -11,7 +11,7 @@ public class TestOrderCreation {
 
     @Before
     public void setUp() {
-        order = new Order("Mrr","Puh","Moscow",4,"+7839276",5,"2022-04-30","Haha");
+        order = new Order();
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
     }
 

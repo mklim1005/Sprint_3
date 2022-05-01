@@ -20,7 +20,7 @@ public class TestAcceptOrder {
     @Before
     public void setUp() {
         courier = new Courier(login, password, firstName);
-        order = new Order("Vinni","Puh","Moscow",4,"+7839276",5,"2022-04-30","Haha");
+        order = new Order();
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
         //create courier
         given()

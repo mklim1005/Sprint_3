@@ -14,7 +14,7 @@ public class TestGetOrderByTrack {
 
     @Before
     public void setUp() {
-        order = new Order("Vinni","Puh","Moscow",4,"+7839276",5,"2022-04-30","Haha");
+        order = new Order();
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
         //create order and get track
         Response responseOrder =   given()
@@ -37,10 +37,10 @@ public class TestGetOrderByTrack {
         assertEquals(order.getFirstName(),"Vinni");
         assertEquals(order.getLastName(),"Puh");
         assertEquals(order.getAddress(),"Moscow");
-        assertEquals(order.getMetroStation(),4);
-        assertEquals(order.getPhone(),"+7839276");
+        assertEquals(order.getMetroStation(),5);
+        assertEquals(order.getPhone(),"+79032349473");
         assertEquals(order.getRentTime(),5);
-        assertEquals(order.getComment(),"Haha");
+        assertEquals(order.getComment(),"haha");
     }
     @Test
     public void testGetOrderIdByTrackWithoutTrackNumberReturnsError(){

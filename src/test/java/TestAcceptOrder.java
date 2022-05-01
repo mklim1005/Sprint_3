@@ -1,6 +1,7 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,6 +52,35 @@ public class TestAcceptOrder {
                 .queryParam("t",trackOrder)
                 .get("/api/v1/orders/track");
         orderId = getOrderByTrackResponse.body().jsonPath().getInt("order.id");
+    }
+
+    @After
+    public void deleteCourier(){
+        Response responseLogin =   given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(courier)
+                .when()
+                .post("/api/v1/courier/login");
+
+        int id;
+        try {
+            id = responseLogin.body().jsonPath().getInt("id");
+        } catch (Exception e) {
+            // skip
+            System.out.println("skip courier deletion");
+            return;
+        }
+
+        Response responseDelete = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(courier)
+                .when()
+                .delete("/api/v1/courier/" + id);
+        responseDelete.then().assertThat().statusCode(200)
+                .and()
+                .assertThat().body("ok",equalTo(true));
     }
 
     @Test

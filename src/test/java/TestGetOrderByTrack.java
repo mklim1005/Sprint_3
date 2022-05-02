@@ -1,5 +1,6 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +25,17 @@ public class TestGetOrderByTrack {
                 .when()
                 .post("/api/v1/orders");
         trackOrder = responseOrder.body().jsonPath().getInt("track");
+    }
+
+    @After
+    public void cancelOrder(){
+        String body = "{\"track\":\"" + trackOrder + "\"}";
+        Response response = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(body)
+                .when()
+                .put("/api/v1/orders/cancel");
     }
 
     @Test
